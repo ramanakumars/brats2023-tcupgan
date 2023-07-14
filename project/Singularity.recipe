@@ -10,18 +10,26 @@ MAINTAINER Ramanakumar Sankar
 # Change base Docker image if, for instance, a CUDA support is required.
 
 # Add your project's dependencies (excluding python dependencies)
+export DEBIAN_FRONTEND=noninteractive
+export TZ=Etc/UTC
 apt-get update && \
 apt-get install -y --no-install-recommends \
         software-properties-common \
         python3-dev \
         python3-pip\
         python3-setuptools\
+        git\
         curl && \
 rm -rf /var/lib/apt/lists/*
 
 # Update you project dependencies in the ./requirements.txt file.
 python3 -m pip install -U --force-reinstall pip
 python3 -m pip install --no-cache-dir -r /requirements.txt
+mkdir -p /tcupgan && cd /tcugan &&\
+        git init &&\
+        git remote add origin https://github.com/ramanakumars/TCuPGAN.git &&\
+        git fetch &&\
+        git checkout -t origin/main
 
 # A docker image must define an entry point. Rename `entry_point.py` to your main python file. Adjust if project
 # contains multiple files.
