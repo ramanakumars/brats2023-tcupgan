@@ -1,0 +1,11 @@
+typer
+pyyaml
+torch>1.13
+torchvision
+torchaudio
+numpy
+scipy
+nibabel
+einops
+torchinfo
+tqdm
