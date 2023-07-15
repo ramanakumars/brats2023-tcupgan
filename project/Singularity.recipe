@@ -25,16 +25,16 @@ rm -rf /var/lib/apt/lists/*
 # Update you project dependencies in the ./requirements.txt file.
 python3 -m pip install -U --force-reinstall pip
 python3 -m pip install --no-cache-dir -r /requirements.txt
-mkdir -p /tcupgan && cd /tcugan &&\
+bash -c "cd /tcupgan &&\
         git init &&\
         git remote add origin https://github.com/ramanakumars/TCuPGAN.git &&\
         git fetch &&\
-        git checkout -t origin/main
+        git checkout -t origin/main"
 
 # A docker image must define an entry point. Rename `entry_point.py` to your main python file. Adjust if project
 # contains multiple files.
 
 %runscript
-exec /bin/bash # python3 /tcupgan/mlcube.py "$@"
+exec python3 /tcupgan/mlcube.py "$@"
 %startscript
-exec /bin/bash # python3 /tcupgan/mlcube.py "$@"
+exec python3 /tcupgan/mlcube.py "$@"
