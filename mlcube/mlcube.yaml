@@ -26,7 +26,7 @@ tasks:
         data_path: {type: directory, default: data}
         config_file: {type: file, default: brats_config.yaml}
       outputs:
-        log_dir: {type: directory, default: train_logs}
+        checkpoint_path: {type: directory, default: checkpoints}
   infer:
   # Computes predictions on input data
     parameters: 

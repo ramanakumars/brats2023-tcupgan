@@ -9,12 +9,12 @@ app = typer.Typer()
 def train(
     data_path: str = typer.Option(..., "--data_path"),
     config_file: str = typer.Option(..., "--config_file"),
-    log_dir: str = typer.Option(..., '--log_dir'),
+    checkpoint_path: str = typer.Options(..., "--checkpoint_path")
     # Provide additional parameters as described in the mlcube.yaml file
     # e.g. model weights:
     # weights: str = typer.Option(..., "--weights"),
 ):
-    run_train(data_path, config_file)
+    run_train(data_path, config_file, checkpoint_path)
 
 
 @app.command("infer")

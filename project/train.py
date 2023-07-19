@@ -11,14 +11,13 @@ import yaml
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 
-def run_train(data_dir: str, config_file: str) -> None:
+def run_train(data_dir: str, config_file: str, ckpt_folder: str) -> None:
     if os.path.isfile(config_file):
         with open(config_file, 'r') as infile:
             config = yaml.safe_load(infile)
     else:
         config = {}
 
-    ckpt_folder = config.get('checkpoint_folder', 'checkpoints/')
     run_name = config.get('run_name', 'TCuPGAN')
     batch_size = config.get('batch_size', 2)
     train_val_split = config.get('train_val_split', 0.9)
