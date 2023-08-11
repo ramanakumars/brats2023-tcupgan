@@ -29,7 +29,8 @@ class Task(str, Enum):
 
     DownloadData = "download"
     Train = "train"
-    Evaluate = "evaluate"
+    Evaluate = "infer"
+    Metrics = "metrics"
 
 
 def train(task_args: List[str]) -> None:
@@ -288,6 +289,10 @@ def main():
 
         if mlcube_args.mlcube_task == Task.Train:
             train(task_args)
+        elif mlcube_args.mlcube_task == Task.Evaluate:
+            infer(task_args)
+        elif mlcube_args.mlcube_task == Task.Metrics:
+            metrics(task_args)
         else:
             raise ValueError(f"Unknown task: {task_args}")
     except Exception as err:
