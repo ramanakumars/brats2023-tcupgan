@@ -1,6 +1,8 @@
 """MLCube handler file"""
 import typer
 from train import run_train
+from infer import run_inference
+from metrics import run_metrics
 
 app = typer.Typer()
 
@@ -20,14 +22,31 @@ def train(
 @app.command("infer")
 def infer(
     data_path: str = typer.Option(..., "--data_path"),
-    parameters_file: str = typer.Option(..., "--parameters_file"),
+    checkpoint_file: str = typer.Option(..., "--ckpt_file"),
+    challenge_name: str = typer.Option(..., "--challenge_name")
     output_path: str = typer.Option(..., "--output_path"),
     # Provide additional parameters as described in the mlcube.yaml file
     # e.g. model weights:
     # weights: str = typer.Option(..., "--weights"),
 ):
     # Modify the infer command as needed
-    raise NotImplementedError("The infer method is not yet implemented")
+    run_inference(data_path, challenge_name, checkpoint_file, output_path)
+
+
+@app.command("metrics")
+def metrics(
+    data_path: str = typer.Option(..., "--data_path"),
+    checkpoint_file: str = typer.Option(..., "--ckpt_file"),
+    challenge_name: str = typer.Option(..., "--challenge_name")
+    # Provide additional parameters as described in the mlcube.yaml file
+    # e.g. model weights:
+    # weights: str = typer.Option(..., "--weights"),
+):
+    # Modify the infer command as needed
+    run_metrics(data_path, checkpoint_file, challenge_name)
+
+
+    
 
 
 @app.command("hotfix")
