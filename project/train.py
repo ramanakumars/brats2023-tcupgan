@@ -70,11 +70,8 @@ def run_train(data_dir: str, config_file: str) -> None:
     gen_learning_rate = gen_lr
     dsc_learning_rate = dsc_lr
     
-    tversky_beta = 0.7
-    tversky_gamma = 0.75
     trainer.seg_alpha = 200
     trainer.loss_type = 'weigthed_bce'
-    trainer.challenge_name = 'MET'
 
     trainer.train(train_data, val_data, n_epochs, lr_decay=1,
                   dsc_learning_rate=dsc_learning_rate,
