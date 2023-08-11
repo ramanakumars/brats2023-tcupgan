@@ -63,8 +63,9 @@ def run_train(data_dir: str, config_file: str) -> None:
         trainer.load_last_checkpoint()
     if gen_transfer_learn_ckpt != '' and disc_transfer_learn_ckpt !='':
         print('Transfer learning checkpoints provided')
-        generator.load_transfer_data(gen_transfer_learn_ckpt)
-        discriminator.load_transfer_data(disc_transfer_learn_ckpt)
+#         generator.load_transfer_data(gen_transfer_learn_ckpt)
+#         discriminator.load_transfer_data(disc_transfer_learn_ckpt)
+        trainer.load(gen_transfer_learn_ckpt, disc_transfer_learn_ckpt)
         print(f'Loaded {gen_transfer_learn_ckpt} \n {disc_transfer_learn_ckpt}')
 
     gen_learning_rate = gen_lr
