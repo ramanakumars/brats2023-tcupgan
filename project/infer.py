@@ -4,7 +4,7 @@ from tcupgan.trainer import TrainerUNet
 from tcupgan.io import BraTSDataGenerator
 from torchvision import transforms
 from torchvision.transforms import Resize
-from tcupgan.utils import process_mask, process_mask_var, process_mask_tissue_wise
+from tcupgan.utils import process_mask_tissue_wise
 import os, glob
 import tqdm
 import nibabel as nib
