@@ -54,9 +54,6 @@ def run_inference(data_dir: str, challenge_name:str, ckpt_file: str, output_dir:
     elif challenge_name == 'SSA':
         lesion_threshs = [75, 100, 5]
         lesion_len_thresh = [5,5,5]
-    elif challenge_name == 'MET':
-        lesion_threshs = [50, 50, 5]
-        lesion_len_thresh = [2,2,2]
     
     counter = 1
     for each_sample in tqdm.tqdm(list_of_case_ids):
