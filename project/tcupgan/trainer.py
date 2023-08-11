@@ -6,9 +6,10 @@ import glob
 from collections import defaultdict
 from torch import optim
 from torch.optim.lr_scheduler import ExponentialLR, ReduceLROnPlateau
-from .losses import mink, kl_loss, adv_loss, fc_tversky
-from torch.nn.functional import cross_entropy
+from .losses import mink, kl_loss, adv_loss, fc_tversky, lw_dice_loss
+from torch.nn.functional import cross_entropy, binary_cross_entropy
 from einops import rearrange
+from .utils import process_mask
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -349,7 +350,7 @@ def weights_init(net, init_type='normal', scaling=0.02):
 class TrainerUNet(Trainer):
 
     tversky_beta = 0.7
-    tversky_gamma = 0.5
+    tversky_gamma = 0.75
     seg_alpha = 200
     loss_type = 'tversky'
 
@@ -375,16 +376,21 @@ class TrainerUNet(Trainer):
             gen_loss_seg = cross_entropy(rearrange(gen_img, "b d c h w -> b c d h w"),
                                          rearrange(target_tensor, "b d c h w -> b c d h w"),
                                          weight=weight) * self.seg_alpha
+        elif self.loss_type == 'weigthed_bce':
+            weight = 1 - torch.sum(target_tensor, dim=(0, 1, 3, 4), keepdim=True) / torch.sum(target_tensor)
+            gen_loss_seg = binary_cross_entropy(gen_img,
+                                         target_tensor,
+                                         weight=weight) * self.seg_alpha
         elif self.loss_type == 'tversky':
-            if gen_img.shape[2] > 1:
-                activation = torch.nn.Softmax(dim=2)
-            else:
-                activation = torch.nn.Sigmoid()
-            gen_loss_seg = fc_tversky(target_tensor, activation(gen_img),
+            weights = 1 - torch.sum(target_tensor, dim=(0, 1, 3, 4)) / torch.sum(target_tensor)
+            gen_loss_seg = fc_tversky(target_tensor, gen_img, weights,
                                       beta=self.tversky_beta,
                                       gamma=self.tversky_gamma) * self.seg_alpha
+
+        
+        
         gen_loss_disc = adv_loss(disc_fake, real_labels)
-        gen_loss = gen_loss_seg + gen_loss_disc
+        gen_loss = gen_loss_seg + gen_loss_disc #+ gen_loss_bce
 
         # Train the generator
         if train:
