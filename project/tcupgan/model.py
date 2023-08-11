@@ -66,9 +66,12 @@ class LSTMUNet(nn.Module, Transferable):
             prev_encoder_filt = reverse_encoder_dims[i]
 
         final_conv = nn.Conv3d(prev_decoder_filt, output_channels, (1, 3, 3), padding=(0, 1, 1), stride=(1, 1, 1))
+#         self.pred_final = nn.Sequential(Rearrange('b t c h w -> b c t h w'),
+#                                         final_conv,
+#                                         Rearrange('b c t h w -> b t c h w'), torch.nn.Softmax(dim=2))
         self.pred_final = nn.Sequential(Rearrange('b t c h w -> b c t h w'),
                                         final_conv,
-                                        Rearrange('b c t h w -> b t c h w'))
+                                        Rearrange('b c t h w -> b t c h w'), torch.nn.Sigmoid())
 
         self.decoder_layers = nn.ModuleList(decoder_layers)
 
