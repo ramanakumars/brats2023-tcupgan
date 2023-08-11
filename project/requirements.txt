@@ -9,3 +9,4 @@ nibabel
 einops
 torchinfo
 tqdm
+cc3d
