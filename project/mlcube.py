@@ -11,7 +11,7 @@ app = typer.Typer()
 def train(
     data_path: str = typer.Option(..., "--data_path"),
     config_file: str = typer.Option(..., "--config_file"),
-    checkpoint_path: str = typer.Options(..., "--checkpoint_path")
+    checkpoint_path: str = typer.Option(..., "--checkpoint_path")
     # Provide additional parameters as described in the mlcube.yaml file
     # e.g. model weights:
     # weights: str = typer.Option(..., "--weights"),
@@ -23,14 +23,14 @@ def train(
 def infer(
     data_path: str = typer.Option(..., "--data_path"),
     checkpoint_file: str = typer.Option(..., "--ckpt_file"),
-    challenge_name: str = typer.Option(..., "--challenge_name"),
+    parameters: str = typer.Option(..., '--parameters'),
     output_path: str = typer.Option(..., "--output_path"),
     # Provide additional parameters as described in the mlcube.yaml file
     # e.g. model weights:
     # weights: str = typer.Option(..., "--weights"),
 ):
     # Modify the infer command as needed
-    run_inference(data_path, challenge_name, checkpoint_file, output_path)
+    run_inference(data_path, parameters, checkpoint_file, output_path)
 
 
 @app.command("metrics")
