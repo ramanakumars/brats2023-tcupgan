@@ -23,7 +23,7 @@ def train(
 def infer(
     data_path: str = typer.Option(..., "--data_path"),
     checkpoint_file: str = typer.Option(..., "--ckpt_file"),
-    challenge_name: str = typer.Option(..., "--challenge_name")
+    challenge_name: str = typer.Option(..., "--challenge_name"),
     output_path: str = typer.Option(..., "--output_path"),
     # Provide additional parameters as described in the mlcube.yaml file
     # e.g. model weights:
@@ -44,9 +44,6 @@ def metrics(
 ):
     # Modify the infer command as needed
     run_metrics(data_path, checkpoint_file, challenge_name)
-
-
-    
 
 
 @app.command("hotfix")

@@ -30,8 +30,7 @@ def run_train(data_dir: str, config_file: str, ckpt_folder: str) -> None:
     norm = config.get('normalize', True)
     add_noise = config.get('add_noise', True)
 
-    assert not (start_from_last and gen_transfer_learn_ckpt != '' and gen_transfer_learn_ckpt !=
-                ''), 'cannot load from last save AND transfer learn from a different model'
+    assert not (start_from_last and gen_transfer_learn_ckpt != '' and gen_transfer_learn_ckpt != ''), 'cannot load from last save AND transfer learn from a different model'
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
