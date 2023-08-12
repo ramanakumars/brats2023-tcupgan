@@ -1,6 +1,6 @@
 typer
 pyyaml
-torch>1.13
+torch>1.13.0
 torchvision
 torchaudio
 numpy
@@ -9,4 +9,5 @@ nibabel
 einops
 torchinfo
 tqdm
-cc3d
+connected-components-3d
+pandas
