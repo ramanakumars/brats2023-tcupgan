@@ -1,0 +1,4 @@
+data_dir: '/home/fortson/manth145/data/BraTS2021_Seg/GLI/ASNR-MICCAI-BraTS2023-GLI-Challenge-InternalValidationData/'
+challenge_name: 'GLI'
+ckpt_file: '/home/fortson/manth145/codes/BraTS/mlcube_v2/TCuPGAN/checkpoints/GLI_BCE_2.3M/generator_ep_030.pth'
+output_dir: '/home/fortson/manth145/data/BraTS2021_Seg/GLI/GLI-Validation-BCE_2.3M-Predicted_Masks/'
