@@ -1,0 +1,3 @@
+[submodule "project/brats_val_2023"]
+	path = project/brats_val_2023
+	url = https://github.com/rachitsaluja/brats_val_2023.git
