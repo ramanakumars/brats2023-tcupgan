@@ -84,6 +84,6 @@ def run_train(config_file: str) -> None:
     trainer.seg_alpha = 200
     trainer.loss_type = 'weighted_bce'
 
-    trainer.train(train_data, val_data, n_epochs, lr_decay=1,
+    trainer.train(train_data, val_data, n_epochs, lr_decay=0.95,
                   dsc_learning_rate=dsc_learning_rate,
                   gen_learning_rate=gen_learning_rate, save_freq=5)
