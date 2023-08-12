@@ -1,7 +1,7 @@
 import torch
 from tcupgan.model import LSTMUNet
-from io import BraTSDataGenerator
-from utils import NpEncoder
+from tools.io import BraTSDataGenerator
+from tools.utils import NpEncoder, process_mask_tissue_wise
 from torchvision import transforms
 from torchvision.transforms import Resize
 import os
@@ -10,9 +10,13 @@ import tqdm
 from einops import rearrange
 import numpy as np
 import json
-from tcupgan.utils import process_mask_tissue_wise
-from brats_val_2023.eval import nib, get_LesionWiseResults
 import shutil
+try:
+    from brats_val_2023.eval import nib, get_LesionWiseResults
+except ModuleNotFoundError:
+    import sys
+    sys.path.insert(0, './brats_val_2023/')
+    from brats_val_2023.eval import nib, get_LesionWiseResults
 
 
 def run_metrics(data_dir: str, ckpt_file: str, challenge_name: str) -> None:
