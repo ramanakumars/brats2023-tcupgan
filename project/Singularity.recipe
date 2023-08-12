@@ -1,32 +1,13 @@
 Bootstrap: docker
-From: ubuntu:20.04
+From: ramanakumars/tcupgan:latest
 
-%files
-../project/requirements.txt /requirements.txt
-../project /tcupgan
-%labels
-MAINTAINER Ramanakumar Sankar
 %post
-# Change base Docker image if, for instance, a CUDA support is required.
-
-# Add your project's dependencies (excluding python dependencies)
-apt-get update && \
-apt-get install -y --no-install-recommends \
-        software-properties-common \
-        python3-dev \
-        python3-pip\
-        python3-setuptools\
-        curl && \
-rm -rf /var/lib/apt/lists/*
-
-# Update you project dependencies in the ./requirements.txt file.
-python3 -m pip install -U --force-reinstall pip
-python3 -m pip install --no-cache-dir -r /requirements.txt
+bash -c "cd /tcupgan && git pull origin main"
 
 # A docker image must define an entry point. Rename `entry_point.py` to your main python file. Adjust if project
 # contains multiple files.
 
 %runscript
-exec /bin/bash # python3 /tcupgan/mlcube.py "$@"
+exec python3 /tcupgan/mlcube.py "$@"
 %startscript
-exec /bin/bash # python3 /tcupgan/mlcube.py "$@"
+exec python3 /tcupgan/mlcube.py "$@"
