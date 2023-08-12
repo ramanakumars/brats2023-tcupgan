@@ -2,7 +2,7 @@ import torch
 from tcupgan.model import LSTMUNet
 from tcupgan.disc import PatchDiscriminator
 from tcupgan.trainer import TrainerUNet
-from tcupgan.io import BraTSDataGenerator
+from io import BraTSDataGenerator
 from torchinfo import summary
 from torch.utils.data import DataLoader, random_split
 import os
@@ -79,7 +79,7 @@ def run_train(data_dir: str, config_file: str, ckpt_folder: str) -> None:
     dsc_learning_rate = dsc_lr
 
     trainer.seg_alpha = 200
-    trainer.loss_type = 'weigthed_bce'
+    trainer.loss_type = 'weighted_bce'
 
     trainer.train(train_data, val_data, n_epochs, lr_decay=1,
                   dsc_learning_rate=dsc_learning_rate,

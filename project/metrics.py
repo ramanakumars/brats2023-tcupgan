@@ -1,7 +1,7 @@
 import torch
 from tcupgan.model import LSTMUNet
-from tcupgan.io import BraTSDataGenerator
-from tcupgan.utils import NpEncoder
+from io import BraTSDataGenerator
+from utils import NpEncoder
 from torchvision import transforms
 from torchvision.transforms import Resize
 import os

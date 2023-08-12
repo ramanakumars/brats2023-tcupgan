@@ -1,9 +1,9 @@
 import torch
 from tcupgan.model import LSTMUNet
-from tcupgan.io import BraTSDataGenerator
 from torchvision import transforms
 from torchvision.transforms import Resize
-from tcupgan.utils import process_mask_tissue_wise
+from utils import process_mask_tissue_wise
+from io import BraTSDataGenerator
 import os
 import glob
 import tqdm
