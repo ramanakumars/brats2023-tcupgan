@@ -2,7 +2,7 @@ import torch
 from tcupgan.model import LSTMUNet
 from tcupgan.disc import PatchDiscriminator
 from tcupgan.trainer import TrainerUNet
-from io import BraTSDataGenerator
+from tools.io import BraTSDataGenerator
 from torchinfo import summary
 from torch.utils.data import DataLoader, random_split
 import os
@@ -17,7 +17,7 @@ def run_train(data_dir: str, config_file: str, ckpt_folder: str) -> None:
         config = {}
 
     run_name = config.get('run_name', 'TCuPGAN')
-    batch_size = config.get('batch_size', 4)
+    batch_size = config.get('batch_size', 1)
     train_val_split = config.get('train_val_split', 0.9)
     start_from_last = config.get('start_from_last', False)
     gen_transfer_learn_ckpt = config.get(
@@ -44,10 +44,8 @@ def run_train(data_dir: str, config_file: str, ckpt_folder: str) -> None:
     train_datagen, val_datagen = random_split(
         data, [train_val_split, 1 - train_val_split], generator=torch_rand_gen)
 
-    train_data = DataLoader(train_datagen, num_workers=8,
-                            batch_size=batch_size, shuffle=True, pin_memory=True)
-    val_data = DataLoader(val_datagen, num_workers=8,
-                          batch_size=batch_size, shuffle=True, pin_memory=True)
+    train_data = DataLoader(train_datagen, batch_size=batch_size, shuffle=True, pin_memory=True)
+    val_data = DataLoader(val_datagen, batch_size=batch_size, shuffle=True, pin_memory=True)
 
     hidden = [16, 32, 48, 64, 128]
     generator = LSTMUNet(hidden_dims=hidden, input_channels=4,

@@ -2,19 +2,25 @@ import torch
 from tcupgan.model import LSTMUNet
 from torchvision import transforms
 from torchvision.transforms import Resize
-from utils import process_mask_tissue_wise
-from io import BraTSDataGenerator
+from tools.utils import process_mask_tissue_wise
+from tools.io import BraTSDataGenerator
 import os
 import glob
 import tqdm
 import nibabel as nib
 from einops import rearrange
 import numpy as np
+import yaml
 
 
-def run_inference(data_dir: str, challenge_name: str, ckpt_file: str, output_dir: str) -> None:
+def run_inference(data_dir: str, parameters_file: str, ckpt_file: str, output_dir: str) -> None:
     assert (data_dir != '') or (ckpt_file != '') or (
         output_dir != ''), 'One or more input arguments are blank'
+
+    with open(parameters_file, 'r') as param_file:
+        parameters = yaml.safe_load(param_file)
+
+    challenge_name = parameters.get('challenge_name')
 
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
