@@ -9,41 +9,34 @@ app = typer.Typer()
 
 @app.command("train")
 def train(
-    data_path: str = typer.Option(..., "--data_path"),
-    config_file: str = typer.Option(..., "--config_file"),
-    checkpoint_path: str = typer.Option(..., "--checkpoint_path")
+    config_file: str = typer.Option(..., "--config_file")
     # Provide additional parameters as described in the mlcube.yaml file
     # e.g. model weights:
     # weights: str = typer.Option(..., "--weights"),
 ):
-    run_train(data_path, config_file, checkpoint_path)
+    run_train(config_file)
 
 
 @app.command("infer")
 def infer(
-    data_path: str = typer.Option(..., "--data_path"),
-    checkpoint_file: str = typer.Option(..., "--ckpt_file"),
-    parameters: str = typer.Option(..., '--parameters'),
-    output_path: str = typer.Option(..., "--output_path"),
+    parameters: str = typer.Option(..., '--parameters')
     # Provide additional parameters as described in the mlcube.yaml file
     # e.g. model weights:
     # weights: str = typer.Option(..., "--weights"),
 ):
     # Modify the infer command as needed
-    run_inference(data_path, parameters, checkpoint_file, output_path)
+    run_inference(parameters)
 
 
 @app.command("metrics")
 def metrics(
-    data_path: str = typer.Option(..., "--data_path"),
-    checkpoint_file: str = typer.Option(..., "--ckpt_file"),
-    challenge_name: str = typer.Option(..., "--challenge_name")
+    parameters: str = typer.Option(..., '--parameters')
     # Provide additional parameters as described in the mlcube.yaml file
     # e.g. model weights:
     # weights: str = typer.Option(..., "--weights"),
 ):
     # Modify the infer command as needed
-    run_metrics(data_path, checkpoint_file, challenge_name)
+    run_metrics(parameters)
 
 
 @app.command("hotfix")
