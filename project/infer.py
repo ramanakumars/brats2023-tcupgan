@@ -16,15 +16,15 @@ import yaml
 def run_inference(parameters_file: str) -> None:
     with open(parameters_file, 'r') as param_file:
         parameters = yaml.safe_load(param_file)
-    
+
     data_dir = parameters.get('data_dir')
     ckpt_file = parameters.get('ckpt_file')
     output_dir = parameters.get('output_dir')
     challenge_name = parameters.get('challenge_name')
-    
+
     assert (data_dir != '') or (ckpt_file != '') or (
         output_dir != ''), 'One or paths to data/checkpoint/output folders are blank'
-    assert challenge_name!=None, 'A valid challenge name needs to be provided in the parameters_infer.yaml'
+    assert challenge_name is not None, 'A valid challenge name needs to be provided in the parameters_infer.yaml'
 
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
@@ -70,7 +70,6 @@ def run_inference(parameters_file: str) -> None:
     elif challenge_name == 'SSA':
         lesion_threshs = [75, 100, 5]
         lesion_len_thresh = [5, 5, 5]
-
 
     for each_sample in tqdm.tqdm(list_of_case_ids):
         ID, timepoint = each_sample.split('-')

@@ -22,20 +22,19 @@ except ModuleNotFoundError:
 
 
 def run_metrics(parameters_file: str) -> None:
-    
-    assert parameters_file!='', 'Provide a valid parameters file'
-    
+
+    assert parameters_file != '', 'Provide a valid parameters file'
+
     with open(parameters_file, 'r') as param_file:
         parameters = yaml.safe_load(param_file)
-    
+
     data_dir = parameters.get('data_dir')
     ckpt_file = parameters.get('ckpt_file')
     assert (data_dir != '') or (ckpt_file != ''), 'One or more input arguments are blank'
-    
-    challenge_name = parameters.get('challenge_name')
-    assert (challenge_name!=None) or (challenge_name!=''), 'A valid challenge name needs to be provided in the parameters_infer.yaml'
-    assert (challenge_name=='GLI') or (challenge_name == 'PED') or (challenge_name == 'MEN') or (challenge_name == 'SSA'), 'Challenge name not in one of the accepted list [GLI, MEN, PED, or SSA], consider picking one of this.'
 
+    challenge_name = parameters.get('challenge_name')
+    assert (challenge_name is not None) or (challenge_name != ''), 'A valid challenge name needs to be provided in the parameters_infer.yaml'
+    assert (challenge_name == 'GLI') or (challenge_name == 'PED') or (challenge_name == 'MEN') or (challenge_name == 'SSA'), 'Challenge name not in one of the accepted list [GLI, MEN, PED, or SSA], consider picking one of this.'
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
