@@ -13,14 +13,18 @@ import numpy as np
 import yaml
 
 
-def run_inference(data_dir: str, parameters_file: str, ckpt_file: str, output_dir: str) -> None:
-    assert (data_dir != '') or (ckpt_file != '') or (
-        output_dir != ''), 'One or more input arguments are blank'
-
+def run_inference(parameters_file: str) -> None:
     with open(parameters_file, 'r') as param_file:
         parameters = yaml.safe_load(param_file)
-
+    
+    data_dir = parameters.get('data_dir')
+    ckpt_file = parameters.get('ckpt_file')
+    output_dir = parameters.get('output_dir')
     challenge_name = parameters.get('challenge_name')
+    
+    assert (data_dir != '') or (ckpt_file != '') or (
+        output_dir != ''), 'One or paths to data/checkpoint/output folders are blank'
+    assert challenge_name!=None, 'A valid challenge name needs to be provided in the parameters_infer.yaml'
 
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
@@ -67,7 +71,7 @@ def run_inference(data_dir: str, parameters_file: str, ckpt_file: str, output_di
         lesion_threshs = [75, 100, 5]
         lesion_len_thresh = [5, 5, 5]
 
-    counter = 1
+
     for each_sample in tqdm.tqdm(list_of_case_ids):
         ID, timepoint = each_sample.split('-')
         mri_cube, mask = data.get_from_ID(int(ID), int(timepoint))
@@ -91,4 +95,3 @@ def run_inference(data_dir: str, parameters_file: str, ckpt_file: str, output_di
         nii_file = nib.Nifti1Image(
             processed_mask, affine=affine_matrix, dtype='uint8')
         nib.save(nii_file, f'{output_dir}/BraTS-{each_sample}.nii.gz')
-        counter += 1
