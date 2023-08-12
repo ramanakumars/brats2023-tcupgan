@@ -30,12 +30,9 @@ tasks:
   infer:
   # Computes predictions on input data
     parameters: 
-      inputs: {
-        data_path: data/,
-        parameters_file: parameters.yaml,
-        # Feel free to include other files required for inference.
-        # These files MUST go inside the additional_files path.
-        # e.g. model weights
-        # weights: additional_files/weights.pt,
-        }
-      outputs: {output_path: {type: directory, default: predictions}}
+      inputs:
+        data_path: {type: directory, default: data}
+        parameters: {type: file, default: infer.yaml}
+        ckpt_file: {type: file, default: checkpoint.pth}
+      outputs:
+        output_path: {type: directory, default: predictions}
