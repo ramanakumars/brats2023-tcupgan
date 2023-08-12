@@ -1,4 +1,1 @@
-data_dir: './GLI/ASNR-MICCAI-BraTS2023-GLI-Challenge-ValidationData/'
 challenge_name: 'GLI'
-ckpt_file: './checkpoints/GLI/generator.pth'
-output_dir: '/GLI/GLI-Validation-Predicted_Masks/'

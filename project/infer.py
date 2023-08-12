@@ -13,13 +13,10 @@ import numpy as np
 import yaml
 
 
-def run_inference(parameters_file: str) -> None:
+def run_inference(data_dir: str, ckpt_file: str, parameters_file: str, output_dir: str) -> None:
     with open(parameters_file, 'r') as param_file:
         parameters = yaml.safe_load(param_file)
 
-    data_dir = parameters.get('data_dir')
-    ckpt_file = parameters.get('ckpt_file')
-    output_dir = parameters.get('output_dir')
     challenge_name = parameters.get('challenge_name')
 
     assert (data_dir != '') or (ckpt_file != '') or (

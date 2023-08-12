@@ -2,12 +2,8 @@
 FROM python:3.9-slim
 MAINTAINER Ramanakumar Sankar
 
-# Add your project's dependencies (excluding python dependencies)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends git
-# Update you project dependencies in the ./requirements.txt file.
-COPY requirements.txt /requirements.txt
-RUN pip3 install --no-cache-dir -r /requirements.txt
 
 COPY . /tcupgan
 
@@ -18,5 +14,7 @@ RUN git init &&\
     git fetch &&\
     git checkout -t origin/main && git pull origin main
 
+RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -U -r requirements-brats.txt
 
 ENTRYPOINT ["python3", "/tcupgan/mlcube.py"]

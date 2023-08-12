@@ -9,34 +9,41 @@ app = typer.Typer()
 
 @app.command("train")
 def train(
-    config_file: str = typer.Option(..., "--config_file")
+    data_dir: str = typer.Option(..., "--data-dir"),
+    config_file: str = typer.Option(..., "--config_file"),
+    ckpt_folder: str = typer.Option(..., "--ckpt_folder")
     # Provide additional parameters as described in the mlcube.yaml file
     # e.g. model weights:
     # weights: str = typer.Option(..., "--weights"),
 ):
-    run_train(config_file)
+    run_train(data_dir, ckpt_folder, config_file)
 
 
 @app.command("infer")
 def infer(
-    parameters: str = typer.Option(..., '--parameters')
+    data_dir: str = typer.Option(..., '--data_dir'),
+    ckpt_file: str = typer.Option(..., '--ckpt_file'),
+    parameters: str = typer.Option(..., '--parameters'),
+    output_path: str = typer.Option(..., '--output_path')
     # Provide additional parameters as described in the mlcube.yaml file
     # e.g. model weights:
     # weights: str = typer.Option(..., "--weights"),
 ):
     # Modify the infer command as needed
-    run_inference(parameters)
+    run_inference(data_dir, ckpt_file, parameters, output_path)
 
 
 @app.command("metrics")
 def metrics(
-    parameters: str = typer.Option(..., '--parameters')
+    data_dir: str = typer.Option(..., '--data_dir'),
+    ckpt_file: str = typer.Option(..., '--ckpt_file'),
+    parameters: str = typer.Option(..., '--parameters'),
     # Provide additional parameters as described in the mlcube.yaml file
     # e.g. model weights:
     # weights: str = typer.Option(..., "--weights"),
 ):
     # Modify the infer command as needed
-    run_metrics(parameters)
+    run_metrics(data_dir, ckpt_file, parameters)
 
 
 @app.command("hotfix")

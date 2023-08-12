@@ -21,15 +21,12 @@ except ModuleNotFoundError:
     from brats_val_2023.eval import nib, get_LesionWiseResults
 
 
-def run_metrics(parameters_file: str) -> None:
-
+def run_metrics(data_dir: str, ckpt_file: str, parameters_file: str) -> None:
     assert parameters_file != '', 'Provide a valid parameters file'
 
     with open(parameters_file, 'r') as param_file:
         parameters = yaml.safe_load(param_file)
 
-    data_dir = parameters.get('data_dir')
-    ckpt_file = parameters.get('ckpt_file')
     assert (data_dir != '') or (ckpt_file != ''), 'One or more input arguments are blank'
 
     challenge_name = parameters.get('challenge_name')

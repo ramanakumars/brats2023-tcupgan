@@ -23,16 +23,23 @@ tasks:
   train:
     parameters:
       inputs:
-        data_path: {type: directory, default: data}
+        data_dir: {type: folder}
         config_file: {type: file, default: brats_config.yaml}
       outputs:
-        checkpoint_path: {type: directory, default: checkpoints}
+        ckpt_folder: {type: folder, default: checkpoints/}
   infer:
   # Computes predictions on input data
     parameters: 
       inputs:
-        data_path: {type: directory, default: data}
-        parameters: {type: file, default: infer.yaml}
-        ckpt_file: {type: file, default: checkpoint.pth}
+        data_dir: {type: directory}
+        ckpt_file: {type: file}
+        parameters: {type: file}
       outputs:
         output_path: {type: directory, default: predictions}
+  metrics:
+    parameters:
+      inputs:
+        data_dir: {type: directory}
+        ckpt_file: {type: file}
+        parameters: {type: file}
+
