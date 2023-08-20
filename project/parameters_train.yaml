@@ -1,0 +1,12 @@
+data_dir: './GLI/ASNR-MICCAI-BraTS2023-ALL-Challenge-TrainingData/'
+ckpt_folder: './checkpoints'
+run_name: 'GLI'
+batch_size: 2
+start_from_last: False
+generator_transfer_learn_checkpoint: ''
+discriminator_transfer_learn_checkpoint: ''
+generator_learning_rate: 0.001
+discriminator_learning_rate: 0.0001
+n_epochs: 30
+normalize: True
+add_noise: True
