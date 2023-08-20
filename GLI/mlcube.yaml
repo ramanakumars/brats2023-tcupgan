@@ -1,0 +1,36 @@
+name: TCuPGAN for 3D volume segmentation
+description: 3D volume segmentation using an LSTM-based PatchGAN
+authors:
+  - {name: Kameswara Mantha, email: manth145@umn.edu, institution: University of Minnesota}
+  - {name: Ramanakumar Sankar, email: rsankar@umn.edu, institution: University of Minnesota}
+
+platform:
+  accelerator_count: 1
+
+docker:
+  # Image name
+  image: ramanakumars/tcupgan:latest
+  # Docker build context relative to $MLCUBE_ROOT. Default is `build`.
+  build_context: "../project"
+  # Docker file name within docker build context, default is `Dockerfile`.
+  build_file: "Dockerfile"
+
+tasks:
+  infer:
+  # Computes predictions on input data
+    parameters: 
+      inputs:
+        data_path: {type: directory, default: data/}
+        parameters_file: {type: file, default: parameters.yaml}
+        weights: {type: file, default: additional_files/checkpoints/generator.pth}
+      outputs:
+        output_path: {type: directory, default: labels/}
+  metrics:
+    parameters:
+      inputs:
+        data_path: {type: directory, default: data/}
+        parameters_file: {type: file, default: parameters.yaml}
+        weights: {type: file, default: additional_files/checkpoints/generator.pth}
+      outputs:
+        output_path: {type: directory, default: labels/}
+
