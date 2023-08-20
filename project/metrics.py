@@ -88,10 +88,9 @@ def run_metrics(data_dir: str, ckpt_file: str, parameters_file: str, output_path
 
     shutil.rmtree(f'./tmp_{challenge_name}')
 
-    if data_dir.endswith('/'):
-        outfile_name = f'{os.path.basename(data_dir[:-1])}-metrics-{challenge_name}.json'
-    else:
-        outfile_name = f'{os.path.basename(data_dir)}-metrics-{challenge_name}.json'
-    with open(f'{os.path.dirname(data_dir[:-1])}/{outfile_name}', 'w') as outJSON:
+    outfile_name = f'metrics-{challenge_name}.json'
+    outfile = os.path.join(output_path, outfile_name)
+
+    with open(outfile, 'w') as outJSON:
         json.dump(metrics_information, outJSON, cls=NpEncoder)
-    print(f'Created metrics file {os.path.join(output_path, outfile_name)}')
+    print(f'Created metrics file {outfile}')
