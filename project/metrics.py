@@ -21,7 +21,7 @@ except ModuleNotFoundError:
     from brats_val_2023.eval import nib, get_LesionWiseResults
 
 
-def run_metrics(data_dir: str, ckpt_file: str, parameters_file: str) -> None:
+def run_metrics(data_dir: str, ckpt_file: str, parameters_file: str, output_path: str) -> None:
     assert parameters_file != '', 'Provide a valid parameters file'
 
     with open(parameters_file, 'r') as param_file:
@@ -94,4 +94,4 @@ def run_metrics(data_dir: str, ckpt_file: str, parameters_file: str) -> None:
         outfile_name = f'{os.path.basename(data_dir)}-metrics-{challenge_name}.json'
     with open(f'{os.path.dirname(data_dir[:-1])}/{outfile_name}', 'w') as outJSON:
         json.dump(metrics_information, outJSON, cls=NpEncoder)
-    print(f'Created metrics file {os.path.dirname(data_dir[:-1])}/{outfile_name}')
+    print(f'Created metrics file {os.path.join(output_path, outfile_name)}')

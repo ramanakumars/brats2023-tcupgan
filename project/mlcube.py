@@ -21,29 +21,30 @@ def train(
 
 @app.command("infer")
 def infer(
-    data_dir: str = typer.Option(..., '--data_dir'),
-    ckpt_file: str = typer.Option(..., '--ckpt_file'),
-    parameters: str = typer.Option(..., '--parameters'),
+    data_path: str = typer.Option(..., '--data_path'),
+    parameters_file: str = typer.Option(..., '--parameters_file'),
+    weights: str = typer.Option(..., '--weights'),
     output_path: str = typer.Option(..., '--output_path')
     # Provide additional parameters as described in the mlcube.yaml file
     # e.g. model weights:
     # weights: str = typer.Option(..., "--weights"),
 ):
     # Modify the infer command as needed
-    run_inference(data_dir, ckpt_file, parameters, output_path)
+    run_inference(data_path, parameters_file, weights, output_path)
 
 
 @app.command("metrics")
 def metrics(
-    data_dir: str = typer.Option(..., '--data_dir'),
-    ckpt_file: str = typer.Option(..., '--ckpt_file'),
-    parameters: str = typer.Option(..., '--parameters'),
+    data_path: str = typer.Option(..., '--data_path'),
+    weights: str = typer.Option(..., '--weights'),
+    parameters_file: str = typer.Option(..., '--parameters_file'),
+    output_path: str = typer.Option(..., '--output_path')
     # Provide additional parameters as described in the mlcube.yaml file
     # e.g. model weights:
     # weights: str = typer.Option(..., "--weights"),
 ):
     # Modify the infer command as needed
-    run_metrics(data_dir, ckpt_file, parameters)
+    run_metrics(data_path, weights, parameters_file, output_path)
 
 
 @app.command("hotfix")

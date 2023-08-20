@@ -13,13 +13,13 @@ import numpy as np
 import yaml
 
 
-def run_inference(data_dir: str, ckpt_file: str, parameters_file: str, output_dir: str) -> None:
+def run_inference(data_dir: str, parameters_file: str, weights: str, output_dir: str) -> None:
     with open(parameters_file, 'r') as param_file:
         parameters = yaml.safe_load(param_file)
 
-    challenge_name = parameters.get('challenge_name')
+    challenge_name = parameters['challenge_name']
 
-    assert (data_dir != '') or (ckpt_file != '') or (
+    assert (data_dir != '') or (weights != '') or (
         output_dir != ''), 'One or paths to data/checkpoint/output folders are blank'
     assert challenge_name is not None, 'A valid challenge name needs to be provided in the parameters_infer.yaml'
 
@@ -44,10 +44,10 @@ def run_inference(data_dir: str, ckpt_file: str, parameters_file: str, output_di
 
     if device == 'cpu':
         generator.load_state_dict(torch.load(
-            f'{ckpt_file}', map_location=torch.device(device)))
+            f'{weights}', map_location=torch.device(device)))
         print('Loaded Model Weights successfully!')
     else:
-        generator.load_state_dict(torch.load(f'{ckpt_file}'))
+        generator.load_state_dict(torch.load(f'{weights}'))
         print('Loaded Model Weights successfully!')
 
     resize_fn = Resize(
